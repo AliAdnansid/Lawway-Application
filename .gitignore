@@ -1,0 +1,26 @@
+gitignore
+# IDE - Android Studio
+*.iml
+.gradle
+/local.properties
+/.idea/
+!/.idea/runConfigurations/
+!/.idea/vcs.xml
+!/.idea/codeStyles/
+!/.idea/copyright/
+
+# Build artifacts
+/build
+/*/build
+/captures
+.externalNativeBuild
+.cxx
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Project specific
+*.keystore
+!debug.keystore # Usually safe to keep, but private keys should be ignored
+google-services.json # If using Firebase, this is often kept out of public repos

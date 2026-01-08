@@ -1,0 +1,44 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Central Pillar -->
+    <path
+        android:fillColor="@color/splash_blue"
+        android:pathData="M11,4h2v15h-2z"/>
+    
+    <!-- Base -->
+    <path
+        android:fillColor="@color/splash_blue"
+        android:pathData="M7,19h10v2H7z"/>
+
+    <!-- Balance Beam -->
+    <path
+        android:fillColor="@color/splash_blue"
+        android:pathData="M12,6c-4.5,0 -8.5,0.4 -8.5,1s4,1 8.5,1 8.5,-0.4 8.5,-1 -4,-1 -8.5,-1z"/>
+
+    <!-- Left Pan and Chains -->
+    <path
+        android:strokeColor="@color/splash_blue"
+        android:strokeWidth="0.4"
+        android:pathData="M3.5,7 L1.5,13 M3.5,7 L5.5,13"/>
+    <path
+        android:fillColor="@color/splash_blue"
+        android:pathData="M1.5,13c0,1.1 0.9,2 2,2s2,-0.9 2,-2H1.5z"/>
+
+    <!-- Right Pan and Chains -->
+    <path
+        android:strokeColor="@color/splash_blue"
+        android:strokeWidth="0.4"
+        android:pathData="M20.5,7 L18.5,13 M20.5,7 L22.5,13"/>
+    <path
+        android:fillColor="@color/splash_blue"
+        android:pathData="M18.5,13c0,1.1 0.9,2 2,2s2,-0.9 2,-2H18.5z"/>
+
+    <!-- Pillar Top Decor -->
+    <path
+        android:fillColor="@color/splash_blue"
+        android:pathData="M11.5,3.5h1v1h-1z"/>
+</vector>
