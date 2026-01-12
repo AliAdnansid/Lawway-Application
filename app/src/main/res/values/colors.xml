@@ -8,4 +8,14 @@
     <color name="splash_loading_bar">#81D4FA</color>
     <color name="gold">#D4AF37</color>
     <color name="bronze">#8B4513</color>
+    
+    <!-- Auth Screen Colors -->
+    <color name="auth_background">#FAFAFA</color>
+    <color name="auth_primary">#2196F3</color>
+    <color name="auth_text_primary">#212121</color>
+    <color name="auth_text_secondary">#757575</color>
+    <color name="auth_input_background">#FFFFFF</color>
+    <color name="auth_toggle_selected">#FFFFFF</color>
+    <color name="auth_toggle_unselected">#F5F5F5</color>
+    <color name="auth_link">#2196F3</color>
 </resources>

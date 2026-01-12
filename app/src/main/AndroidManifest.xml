@@ -21,10 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SignupActivity"
+            android:name=".AuthActivity"
             android:exported="false" />
     </application>
 

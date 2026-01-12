@@ -14,11 +14,12 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // Navigate to LoginActivity after 2 seconds
+        // Navigate to AuthActivity after 2 seconds
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+            startActivity(new Intent(SplashActivity.this, AuthActivity.class));
             finish();
         }, 2000);
     }
 }
+
 
