@@ -7,27 +7,22 @@ public class User {
     private String userId;
     private String fullName;
     private String email;
-    private String userType; // "Client" or "Lawyer"
+    private String userType;
     private @ServerTimestamp Timestamp createdAt;
     
-    // Optional fields (can be null)
     private String phone;
     private String profileImageUrl;
     
-    // Lawyer-specific fields (only used when userType == "Lawyer")
     private String specialization;
-    private Integer experience; // years of experience
-    private Double rating; // average rating
-    private Integer totalCases; // total cases handled
+    private Integer experience;
+    private Double rating;
+    private Integer totalCases;
     
-    // Client-specific fields (only used when userType == "Client")
     private String address;
 
-    // Default constructor (required for Firestore)
     public User() {
     }
 
-    // Constructor for basic user creation
     public User(String userId, String fullName, String email, String userType) {
         this.userId = userId;
         this.fullName = fullName;
@@ -35,7 +30,6 @@ public class User {
         this.userType = userType;
     }
 
-    // Getters and Setters
     public String getUserId() {
         return userId;
     }
@@ -92,7 +86,6 @@ public class User {
         this.profileImageUrl = profileImageUrl;
     }
 
-    // Lawyer-specific getters and setters
     public String getSpecialization() {
         return specialization;
     }
@@ -125,7 +118,6 @@ public class User {
         this.totalCases = totalCases;
     }
 
-    // Client-specific getters and setters
     public String getAddress() {
         return address;
     }

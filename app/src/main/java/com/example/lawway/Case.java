@@ -9,27 +9,24 @@ public class Case {
     private String title;
     private String description;
     private String category;
-    private String status; // "pending", "active", "closed", "cancelled", "deleted"
-    private String priority; // "low", "medium", "high"
+    private String status;
+    private String priority;
     private @ServerTimestamp Timestamp createdAt;
     private Timestamp updatedAt;
     private Timestamp closedAt;
 
-    // Default constructor (required for Firestore)
     public Case() {
     }
 
-    // Constructor for case creation
     public Case(String clientId, String title, String description, String category) {
         this.clientId = clientId;
         this.title = title;
         this.description = description;
         this.category = category;
-        this.status = "pending"; // Auto-set to pending
-        this.priority = "medium"; // Default priority
+        this.status = "pending";
+        this.priority = "medium";
     }
 
-    // Getters and Setters
     public String getCaseId() {
         return caseId;
     }

@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class AuthActivity extends AppCompatActivity {
 
-    // UI Components
     private TextView tvTitle, tvAccountQuestion, tvAccountLink;
     private LinearLayout llAccountTypeToggle, llFullNameContainer;
     private Button btnSignUpToggle, btnLogInToggle;
@@ -32,12 +31,10 @@ public class AuthActivity extends AppCompatActivity {
     private ImageButton ibPasswordVisibility;
     private ImageView ivEmailCheck;
 
-    // State variables
-    private boolean isSignUpMode = true; // true = Sign Up, false = Log In
-    private boolean isClientSelected = true; // true = Client, false = Lawyer
+    private boolean isSignUpMode = true;
+    private boolean isClientSelected = true;
     private boolean isPasswordVisible = false;
 
-    // Firebase
     private FirebaseAuth auth;
 
     @Override
@@ -45,19 +42,13 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
-        // Initialize Firebase
         auth = FirebaseAuth.getInstance();
 
-        // Initialize UI components
         initViews();
         setupClickListeners();
         updateUI();
 
-        // Check if user is already logged in
         if (auth.getCurrentUser() != null) {
-            // User is already logged in, navigate to main activity
-            // startActivity(new Intent(this, MainActivity.class));
-            // finish();
         }
     }
 
@@ -80,7 +71,6 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
-        // Sign Up / Log In toggle
         btnSignUpToggle.setOnClickListener(v -> {
             isSignUpMode = true;
             updateUI();
@@ -91,7 +81,6 @@ public class AuthActivity extends AppCompatActivity {
             updateUI();
         });
 
-        // Client / Lawyer toggle
         btnClientToggle.setOnClickListener(v -> {
             isClientSelected = true;
             updateAccountTypeToggle();
@@ -102,7 +91,6 @@ public class AuthActivity extends AppCompatActivity {
             updateAccountTypeToggle();
         });
 
-        // Password visibility toggle
         ibPasswordVisibility.setOnClickListener(v -> {
             isPasswordVisible = !isPasswordVisible;
             if (isPasswordVisible) {
@@ -115,7 +103,6 @@ public class AuthActivity extends AppCompatActivity {
             etPassword.setSelection(etPassword.getText().length());
         });
 
-        // Submit button (Sign Up / Log In)
         btnSubmit.setOnClickListener(v -> {
             if (isSignUpMode) {
                 handleSignUp();
@@ -124,13 +111,11 @@ public class AuthActivity extends AppCompatActivity {
             }
         });
 
-        // Account question link (switch between Sign Up and Log In)
         tvAccountLink.setOnClickListener(v -> {
             isSignUpMode = !isSignUpMode;
             updateUI();
         });
 
-        // Email validation
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -152,17 +137,14 @@ public class AuthActivity extends AppCompatActivity {
 
     private void updateUI() {
         if (isSignUpMode) {
-            // Sign Up mode
             tvTitle.setText(R.string.join_lawway);
             btnSubmit.setText(R.string.create_account);
             tvAccountQuestion.setText(R.string.already_have_account);
             tvAccountLink.setText(R.string.log_in);
 
-            // Show account type toggle and full name field
             llAccountTypeToggle.setVisibility(View.VISIBLE);
             llFullNameContainer.setVisibility(View.VISIBLE);
 
-            // Update toggle buttons
             btnSignUpToggle.setBackgroundResource(R.drawable.bg_toggle_segment);
             btnSignUpToggle.setTextColor(getResources().getColor(R.color.auth_text_primary, null));
             btnSignUpToggle.setTypeface(null, android.graphics.Typeface.BOLD);
@@ -171,17 +153,14 @@ public class AuthActivity extends AppCompatActivity {
             btnLogInToggle.setTextColor(getResources().getColor(R.color.auth_text_secondary, null));
             btnLogInToggle.setTypeface(null, android.graphics.Typeface.NORMAL);
         } else {
-            // Log In mode
             tvTitle.setText(R.string.welcome_back);
             btnSubmit.setText(R.string.log_in);
             tvAccountQuestion.setText(R.string.dont_have_account);
             tvAccountLink.setText(R.string.sign_up);
 
-            // Hide account type toggle and full name field
             llAccountTypeToggle.setVisibility(View.GONE);
             llFullNameContainer.setVisibility(View.GONE);
 
-            // Update toggle buttons
             btnLogInToggle.setBackgroundResource(R.drawable.bg_toggle_segment);
             btnLogInToggle.setTextColor(getResources().getColor(R.color.auth_text_primary, null));
             btnLogInToggle.setTypeface(null, android.graphics.Typeface.BOLD);
@@ -217,7 +196,6 @@ public class AuthActivity extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        // Validation
         if (fullName.isEmpty()) {
             etFullName.setError("Full name is required");
             etFullName.requestFocus();
@@ -248,25 +226,19 @@ public class AuthActivity extends AppCompatActivity {
             return;
         }
 
-        // Disable button to prevent multiple clicks
         btnSubmit.setEnabled(false);
 
-        // Create user with Firebase Auth
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = auth.getCurrentUser();
                         if (user != null) {
-                            // Store user data in Firestore using UserHelper
                             String userType = isClientSelected ? "Client" : "Lawyer";
                             User userObj = new User(user.getUid(), fullName, email, userType);
                             
                             UserHelper.createUserWithId(user.getUid(), userObj)
                                     .addOnSuccessListener(aVoid -> {
                                         Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
-                                        // Navigate to main activity
-                                        // startActivity(new Intent(this, MainActivity.class));
-                                        // finish();
                                     })
                                     .addOnFailureListener(e -> {
                                         Toast.makeText(this, "Error saving user data: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -284,7 +256,6 @@ public class AuthActivity extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        // Validation
         if (email.isEmpty()) {
             etEmail.setError("Email is required");
             etEmail.requestFocus();
@@ -297,17 +268,12 @@ public class AuthActivity extends AppCompatActivity {
             return;
         }
 
-        // Disable button to prevent multiple clicks
         btnSubmit.setEnabled(false);
 
-        // Sign in with Firebase Auth
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
-                        // Navigate to main activity
-                        // startActivity(new Intent(this, MainActivity.class));
-                        // finish();
                     } else {
                         Toast.makeText(this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         btnSubmit.setEnabled(true);

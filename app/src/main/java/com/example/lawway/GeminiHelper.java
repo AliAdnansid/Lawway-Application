@@ -33,12 +33,6 @@ public class GeminiHelper {
         void onError(String error);
     }
 
-    /**
-     * Send a message to Gemini and get response
-     * @param apiKey Your Gemini API key
-     * @param message The message/question to send
-     * @param callback Callback for success/error
-     */
     public static void sendMessage(String apiKey, String message, GeminiCallback callback) {
         if (apiKey == null || apiKey.isEmpty()) {
             callback.onError("API key is required");
@@ -110,13 +104,6 @@ public class GeminiHelper {
         }
     }
 
-    /**
-     * Send a message with a system instruction/prompt
-     * @param apiKey Your Gemini API key
-     * @param systemInstruction System instruction/prompt for context
-     * @param message The message/question to send
-     * @param callback Callback for success/error
-     */
     public static void sendMessageWithContext(String apiKey, String systemInstruction, String message, GeminiCallback callback) {
         String fullMessage = systemInstruction + "\n\nUser: " + message;
         sendMessage(apiKey, fullMessage, callback);

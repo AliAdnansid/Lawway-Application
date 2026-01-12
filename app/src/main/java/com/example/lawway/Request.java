@@ -8,26 +8,23 @@ public class Request {
     private String caseId;
     private String clientId;
     private String lawyerId;
-    private String status; // "pending", "accepted", "rejected", "deleted"
+    private String status;
     private String message;
     private @ServerTimestamp Timestamp createdAt;
     private Timestamp respondedAt;
     private String rejectedReason;
 
-    // Default constructor (required for Firestore)
     public Request() {
     }
 
-    // Constructor for request creation
     public Request(String caseId, String clientId, String lawyerId, String message) {
         this.caseId = caseId;
         this.clientId = clientId;
         this.lawyerId = lawyerId;
         this.message = message;
-        this.status = "pending"; // Auto-set to pending
+        this.status = "pending";
     }
 
-    // Getters and Setters
     public String getRequestId() {
         return requestId;
     }
