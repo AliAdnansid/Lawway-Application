@@ -19,6 +19,7 @@ public class User {
     private Integer totalCases;
     
     private String address;
+    private String fcmToken;
 
     public User() {
     }
@@ -124,5 +125,13 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 }

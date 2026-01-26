@@ -18,4 +18,48 @@
     <color name="auth_toggle_selected">#FFFFFF</color>
     <color name="auth_toggle_unselected">#F5F5F5</color>
     <color name="auth_link">#2196F3</color>
+    
+    <color name="dashboard_background">#FFFFFF</color>
+    <color name="dashboard_primary">#2196F3</color>
+    <color name="dashboard_dark_blue">#1565C0</color>
+    <color name="dashboard_text_primary">#212121</color>
+    <color name="dashboard_text_secondary">#757575</color>
+    <color name="dashboard_card_background">#FFFFFF</color>
+    <color name="dashboard_ai_banner">#1565C0</color>
+    <color name="dashboard_quick_action_blue">#2196F3</color>
+    <color name="dashboard_quick_action_purple">#9C27B0</color>
+    <color name="dashboard_quick_action_orange">#FF9800</color>
+    <color name="dashboard_quick_action_teal">#009688</color>
+    <color name="dashboard_chip_background">#E3F2FD</color>
+    <color name="dashboard_chip_selected">#2196F3</color>
+    <color name="online_status">#4CAF50</color>
+    <color name="notification_dot">#F44336</color>
+    
+    <color name="chat_background">#FFFFFF</color>
+    <color name="chat_text_primary">#212121</color>
+    <color name="chat_text_secondary">#757575</color>
+    <color name="chat_date_separator">#9E9E9E</color>
+    <color name="chat_user_bubble">#2196F3</color>
+    <color name="chat_bot_bubble">#FFFFFF</color>
+    <color name="chat_user_text">#FFFFFF</color>
+    <color name="chat_bot_text">#212121</color>
+    <color name="chat_info_banner">#F5F5F5</color>
+    <color name="chat_input_bg">#F5F5F5</color>
+    <color name="chat_circle_button">#E0E0E0</color>
+    
+    <color name="status_pending">#FFC107</color>
+    <color name="status_accepted">#81C784</color>
+    <color name="status_declined">#E57373</color>
+    <color name="request_card_border">#E0E0E0</color>
+    <color name="nav_selected_bg">#2196F3</color>
+    
+    <color name="event_meeting">#2196F3</color>
+    <color name="event_court">#F44336</color>
+    <color name="event_personal">#4CAF50</color>
+    <color name="calendar_date_text">#212121</color>
+    <color name="calendar_date_inactive">#BDBDBD</color>
+    <color name="calendar_date_selected_text">#FFFFFF</color>
+    <color name="priority_tag_bg">#FFEBEE</color>
+    <color name="priority_tag_border">#F44336</color>
+    <color name="new_event_button">#1565C0</color>
 </resources>

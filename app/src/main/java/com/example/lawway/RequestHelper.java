@@ -20,8 +20,34 @@ public class RequestHelper {
         Map<String, Object> requestData = requestToMap(request);
         requestData.put("createdAt", Timestamp.now());
         
-        return db.collection(COLLECTION_NAME)
+        Task<DocumentReference> task = db.collection(COLLECTION_NAME)
                 .add(requestData);
+        
+        task.addOnSuccessListener(documentReference -> {
+            if (request.getLawyerId() != null) {
+                sendNewRequestNotification(request.getLawyerId(), request.getClientId(), documentReference.getId());
+            }
+        });
+        
+        return task;
+    }
+    
+    private static void sendNewRequestNotification(String lawyerId, String clientId, String requestId) {
+        UserHelper.getUserById(clientId)
+            .addOnSuccessListener(clientDoc -> {
+                String clientName = "A client";
+                if (clientDoc.exists()) {
+                    User client = UserHelper.documentToUser(clientDoc);
+                    if (client != null && client.getFullName() != null) {
+                        clientName = client.getFullName();
+                    }
+                }
+                
+                String title = "New Request Received";
+                String message = clientName + " has sent you a new case request";
+                
+                NotificationHelper.sendNotificationToUser(lawyerId, title, message, requestId, "Lawyer");
+            });
     }
 
     public static Task<DocumentSnapshot> getRequestById(String requestId) {
@@ -120,9 +146,33 @@ public class RequestHelper {
         updates.put("status", "accepted");
         updates.put("respondedAt", Timestamp.now());
         
-        return db.collection(COLLECTION_NAME)
+        Task<Void> task = db.collection(COLLECTION_NAME)
                 .document(requestId)
                 .update(updates);
+        
+        task.addOnSuccessListener(aVoid -> {
+            getRequestById(requestId)
+                .addOnSuccessListener(requestDoc -> {
+                    if (requestDoc.exists()) {
+                        Request request = documentToRequest(requestDoc);
+                        if (request != null && request.getClientId() != null) {
+                            sendAcceptedNotification(request.getClientId(), requestId);
+                        }
+                    }
+                });
+        });
+        
+        return task;
+    }
+    
+    private static void sendAcceptedNotification(String clientId, String requestId) {
+        UserHelper.getUserById(clientId)
+            .addOnSuccessListener(clientDoc -> {
+                String title = "Request Accepted";
+                String message = "Your case request has been accepted by the lawyer";
+                
+                NotificationHelper.sendNotificationToUser(clientId, title, message, requestId, "Client");
+            });
     }
 
     public static Task<Void> rejectRequest(String requestId, String rejectedReason) {

@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -238,7 +239,9 @@ public class AuthActivity extends AppCompatActivity {
                             
                             UserHelper.createUserWithId(user.getUid(), userObj)
                                     .addOnSuccessListener(aVoid -> {
+                                        initializeFCMToken();
                                         Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+                                        navigateToDashboard();
                                     })
                                     .addOnFailureListener(e -> {
                                         Toast.makeText(this, "Error saving user data: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -273,11 +276,46 @@ public class AuthActivity extends AppCompatActivity {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+                        initializeFCMToken();
                         Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
+                        navigateToDashboard();
                     } else {
                         Toast.makeText(this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         btnSubmit.setEnabled(true);
                     }
                 });
+    }
+
+    private void navigateToDashboard() {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            UserHelper.getUserById(user.getUid())
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            User userObj = UserHelper.documentToUser(documentSnapshot);
+                            if (userObj != null) {
+                                if ("Client".equals(userObj.getUserType())) {
+                                    startActivity(new Intent(this, ClientDashboardActivity.class));
+                                } else {
+                                    startActivity(new Intent(this, ClientDashboardActivity.class));
+                                }
+                                finish();
+                            }
+                        }
+                    });
+        }
+    }
+
+    private void initializeFCMToken() {
+        FirebaseMessaging.getInstance().getToken()
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful() && task.getResult() != null) {
+                    String token = task.getResult();
+                    FirebaseUser user = auth.getCurrentUser();
+                    if (user != null) {
+                        UserHelper.updateFcmToken(user.getUid(), token);
+                    }
+                }
+            });
     }
 }

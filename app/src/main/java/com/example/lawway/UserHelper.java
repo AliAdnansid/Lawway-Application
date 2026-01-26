@@ -148,6 +148,7 @@ public class UserHelper {
         if (user.getRating() != null) map.put("rating", user.getRating());
         if (user.getTotalCases() != null) map.put("totalCases", user.getTotalCases());
         if (user.getAddress() != null) map.put("address", user.getAddress());
+        if (user.getFcmToken() != null) map.put("fcmToken", user.getFcmToken());
         
         return map;
     }
@@ -173,10 +174,21 @@ public class UserHelper {
             user.setTotalCases(document.getLong("totalCases").intValue());
         }
         user.setAddress(document.getString("address"));
+        user.setFcmToken(document.getString("fcmToken"));
         if (document.getTimestamp("createdAt") != null) {
             user.setCreatedAt(document.getTimestamp("createdAt"));
         }
         
         return user;
+    }
+
+    public static Task<Void> updateFcmToken(String userId, String fcmToken) {
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("fcmToken", fcmToken);
+        updates.put("updatedAt", Timestamp.now());
+        
+        return db.collection(COLLECTION_NAME)
+                .document(userId)
+                .update(updates);
     }
 }

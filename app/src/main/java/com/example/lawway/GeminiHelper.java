@@ -17,7 +17,7 @@ import okhttp3.Response;
 
 public class GeminiHelper {
     private static final String TAG = "GeminiHelper";
-    private static final String BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=";
+    private static final String BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=";
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     
     private static final OkHttpClient client = new OkHttpClient.Builder()
